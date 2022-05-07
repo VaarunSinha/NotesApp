@@ -28,7 +28,7 @@ export default function CreateNote() {
                 selectionColor="#fff"
             />
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.bottom}>
-                <Button style={StyleSheet.button} appearance="filled" onPress={saveNote}>
+                <Button style={styles.button} appearance="filled" onPress={saveNote}>
                     Create Note
                 </Button>
             </KeyboardAvoidingView>
