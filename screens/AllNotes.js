@@ -7,17 +7,6 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native"
 export default function AllNotes() {
     const [notes, setNotes] = useState([])
     const Navigation = useNavigation()
-    const renderItem = ({ item, index }) => (
-        <View>
-            <ListItem
-                title={<Text category="h5">{item}</Text>}
-
-            />
-            <Button onPress={Navigation.navigate("Note", {
-                singleNote: item,
-            })}>View</Button>
-        </View>
-    );
     const getNotes = () => {
         AsyncStorage.getItem("NOTES").then((notes) => {
             setNotes(JSON.parse(notes))
@@ -29,8 +18,26 @@ export default function AllNotes() {
             getNotes()
         }, [])
     )
+    const renderItem = ({ item, index }) => (
+        <View>
+
+            <ListItem
+                title={<Text style={{ fontSize: 40 }}>{item}</Text>}
+                onPress={() => {
+                    Navigation.navigate("Note", {
+                        singleNote: item,
+                    })
+                }}
+                style={styles.item}
+            />
+
+        </View>
+    );
     return (
         <View style={{ backgroundColor: "#222B45", flex: 1 }}>
+            <Text style={styles.title} category="h1">
+                Notes
+            </Text>
             <List
                 style={styles.container}
                 data={notes.reverse()}
@@ -46,11 +53,12 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     item: {
-        marginVertical: 4,
+        margin: 14,
     },
     title: {
         textAlign: "center",
-        marginTop: 50
+        marginTop: 50,
+        marginBottom: 50,
     },
     notes: {
         fontSize: 24,
